@@ -5,7 +5,7 @@ on:
 
 jobs:
   MacOS-latest:
-    name: 'macOS'
+    name: 'macOS latest'
     runs-on: macos-latest
 
     steps:
@@ -18,8 +18,21 @@ jobs:
           netstat -anv
 
   MacOS-15:
-    name: 'macOS'
+    name: 'macOS 15'
     runs-on: macos-15
+
+    steps:
+      - name: Test
+        run: |
+          nc -l 8001 &
+          python -m http.server 8002 --bind 127.0.0.1 &
+          python3 -m http.server 8003 --bind 127.0.0.1 &
+          sleep 2s
+          netstat -anv
+
+  Ubuntu-latest:
+    name: 'Ubuntu latest'
+    runs-on: ubuntu-latest
 
     steps:
       - name: Test
